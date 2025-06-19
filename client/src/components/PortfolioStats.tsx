@@ -94,26 +94,49 @@ export default function PortfolioStats() {
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: index * 0.1 }}
               viewport={{ once: true }}
+              whileHover={{ 
+                y: -10,
+                rotateY: 2,
+                scale: 1.02,
+              }}
+              className="group"
             >
-              <GlassCard className="p-8 h-full">
+              <GlassCard className="p-8 h-full hover-lift hover-glow cursor-pointer">
                 <div className="mb-6">
-                  <h3 className="text-lg font-semibold text-muted-foreground mb-2">
+                  <motion.h3 
+                    className="text-lg font-semibold text-muted-foreground mb-2"
+                    whileHover={{ x: 3, color: "hsl(263, 85%, 68%)" }}
+                    transition={{ type: "spring", stiffness: 300 }}
+                  >
                     {stat.title}
-                  </h3>
+                  </motion.h3>
                   <div className="flex items-baseline space-x-2">
-                    <span className="text-4xl font-bold">
+                    <motion.span 
+                      className="text-4xl font-bold"
+                      whileHover={{ scale: 1.1, y: -2 }}
+                      transition={{ type: "spring", stiffness: 300 }}
+                    >
                       {stat.value.length > 10 
                         ? `${(parseInt(stat.value) / 1000000).toFixed(1)}M`
                         : stat.value
                       }
-                    </span>
-                    <span className="text-sm text-muted-foreground">{stat.unit}</span>
+                    </motion.span>
+                    <motion.span 
+                      className="text-sm text-muted-foreground"
+                      whileHover={{ scale: 1.1 }}
+                    >
+                      {stat.unit}
+                    </motion.span>
                   </div>
                   <div className="flex items-center space-x-2 mt-2">
                     <span className="text-sm text-muted-foreground">from 2019</span>
-                    <span className="text-sm text-destructive">
+                    <motion.span 
+                      className="text-sm text-destructive"
+                      whileHover={{ scale: 1.2, x: 3 }}
+                      transition={{ type: "spring", stiffness: 300 }}
+                    >
                       ↓ {stat.change}
-                    </span>
+                    </motion.span>
                   </div>
                 </div>
 
@@ -138,13 +161,28 @@ export default function PortfolioStats() {
                   ))}
                 </div>
 
-                <Button
-                  variant="ghost"
-                  className="flex items-center space-x-2 text-primary hover:text-primary/80 p-0 h-auto"
+                <motion.div
+                  whileHover={{ x: 5, scale: 1.05 }}
+                  transition={{ type: "spring", stiffness: 300 }}
                 >
-                  <span className="text-sm">{stat.actionText}</span>
-                  <stat.actionIcon className="h-4 w-4" />
-                </Button>
+                  <Button
+                    variant="ghost"
+                    className="flex items-center space-x-2 text-primary hover:text-primary/80 p-0 h-auto group"
+                  >
+                    <motion.span 
+                      className="text-sm"
+                      whileHover={{ x: 2 }}
+                    >
+                      {stat.actionText}
+                    </motion.span>
+                    <motion.div
+                      whileHover={{ x: 3, rotate: 15 }}
+                      transition={{ type: "spring", stiffness: 300 }}
+                    >
+                      <stat.actionIcon className="h-4 w-4" />
+                    </motion.div>
+                  </Button>
+                </motion.div>
               </GlassCard>
             </motion.div>
           ))}

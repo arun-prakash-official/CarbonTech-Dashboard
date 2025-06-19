@@ -82,17 +82,49 @@ export default function FeaturesShowcase() {
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: index * 0.1 }}
               viewport={{ once: true }}
+              whileHover={{ 
+                y: -10,
+                rotateY: 5,
+                scale: 1.03,
+              }}
+              className="group"
             >
-              <GlassCard className="p-8 h-full group hover:shadow-2xl transition-all duration-300">
+              <GlassCard className="p-8 h-full hover-lift hover-glow transition-all duration-300 cursor-pointer">
                 <motion.div
-                  whileHover={{ scale: 1.1 }}
-                  transition={{ type: "spring", stiffness: 400, damping: 10 }}
-                  className={`w-12 h-12 bg-gradient-to-r ${feature.color} rounded-lg flex items-center justify-center mb-6`}
+                  initial={{ scale: 1, rotate: 0 }}
+                  whileHover={{ 
+                    scale: 1.2,
+                    rotate: [0, -5, 5, -5, 0],
+                    y: [-5, 0, -5],
+                  }}
+                  transition={{ 
+                    duration: 0.6,
+                    type: "spring",
+                    stiffness: 200,
+                  }}
+                  className={`w-12 h-12 bg-gradient-to-r ${feature.color} rounded-lg flex items-center justify-center mb-6 group-hover:animate-rotate-strike`}
                 >
-                  <feature.icon className="h-6 w-6 text-white" />
+                  <motion.div
+                    whileHover={{ rotate: 360 }}
+                    transition={{ duration: 0.5 }}
+                  >
+                    <feature.icon className="h-6 w-6 text-white" />
+                  </motion.div>
                 </motion.div>
-                <h3 className="text-xl font-semibold mb-4">{feature.title}</h3>
-                <p className="text-muted-foreground">{feature.description}</p>
+                <motion.h3 
+                  className="text-xl font-semibold mb-4"
+                  whileHover={{ x: 5, color: "hsl(263, 85%, 68%)" }}
+                  transition={{ type: "spring", stiffness: 300 }}
+                >
+                  {feature.title}
+                </motion.h3>
+                <motion.p 
+                  className="text-muted-foreground"
+                  whileHover={{ y: -2 }}
+                  transition={{ type: "spring", stiffness: 300 }}
+                >
+                  {feature.description}
+                </motion.p>
               </GlassCard>
             </motion.div>
           ))}

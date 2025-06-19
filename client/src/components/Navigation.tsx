@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Leaf, Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import ThemeToggle from "@/components/ui/theme-toggle";
 
 export default function Navigation() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -35,6 +36,7 @@ export default function Navigation() {
                 {item.label}
               </a>
             ))}
+            <ThemeToggle />
             <Button className="bg-gradient-to-r from-primary to-blue-500 hover:shadow-lg transition-all">
               Get Started
             </Button>
@@ -65,9 +67,12 @@ export default function Navigation() {
                   {item.label}
                 </a>
               ))}
-              <Button className="bg-gradient-to-r from-primary to-blue-500 w-full">
-                Get Started
-              </Button>
+              <div className="flex items-center justify-between pt-4">
+                <ThemeToggle />
+                <Button className="bg-gradient-to-r from-primary to-blue-500 flex-1 ml-4">
+                  Get Started
+                </Button>
+              </div>
             </div>
           </div>
         )}

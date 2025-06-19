@@ -51,7 +51,13 @@ export default function BrandKits() {
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: index * 0.1 }}
               viewport={{ once: true }}
-              className={`gradient-border hover:animate-pulse-glow transition-all duration-300 cursor-pointer ${
+              whileHover={{ 
+                scale: 1.05,
+                rotateY: 5,
+                rotateX: 5,
+              }}
+              whileTap={{ scale: 0.95 }}
+              className={`gradient-border hover-lift hover-glow cursor-pointer group ${
                 kit.selected ? "animate-pulse-glow" : ""
               }`}
               onClick={() => toggleBrandKit(kit.id)}
@@ -59,15 +65,35 @@ export default function BrandKits() {
               <div className="gradient-border-content p-6">
                 <div className="flex items-center justify-between">
                   <div className="flex items-center space-x-3">
-                    <Checkbox 
-                      checked={kit.selected}
-                      onCheckedChange={() => toggleBrandKit(kit.id)}
-                      className="data-[state=checked]:bg-primary data-[state=checked]:border-primary"
+                    <motion.div
+                      whileHover={{ scale: 1.2, rotate: 360 }}
+                      transition={{ duration: 0.3 }}
+                    >
+                      <Checkbox 
+                        checked={kit.selected}
+                        onCheckedChange={() => toggleBrandKit(kit.id)}
+                        className="data-[state=checked]:bg-primary data-[state=checked]:border-primary"
+                      />
+                    </motion.div>
+                    <motion.div 
+                      className={`w-8 h-8 bg-gradient-to-r ${kit.color} rounded-full group-hover:animate-bounce-strike`}
+                      whileHover={{ rotate: [0, -10, 10, -10, 0], scale: 1.2 }}
+                      transition={{ duration: 0.5 }}
                     />
-                    <div className={`w-8 h-8 bg-gradient-to-r ${kit.color} rounded-full`} />
-                    <span className="text-lg font-semibold">{kit.name}</span>
+                    <motion.span 
+                      className="text-lg font-semibold"
+                      whileHover={{ x: 5 }}
+                      transition={{ type: "spring", stiffness: 300 }}
+                    >
+                      {kit.name}
+                    </motion.span>
                   </div>
-                  <MoreHorizontal className="h-5 w-5 text-muted-foreground" />
+                  <motion.div
+                    whileHover={{ rotate: 90, scale: 1.2 }}
+                    transition={{ duration: 0.2 }}
+                  >
+                    <MoreHorizontal className="h-5 w-5 text-muted-foreground" />
+                  </motion.div>
                 </div>
               </div>
             </motion.div>

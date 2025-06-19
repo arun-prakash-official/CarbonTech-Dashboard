@@ -69,25 +69,59 @@ export default function Testimonials() {
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: index * 0.1 }}
               viewport={{ once: true }}
+              whileHover={{ 
+                y: -8,
+                rotateX: 5,
+                scale: 1.02,
+              }}
+              className="group"
             >
-              <GlassCard className="p-8 h-full">
+              <GlassCard className="p-8 h-full hover-lift hover-glow cursor-pointer">
                 <div className="flex items-center mb-6">
-                  <div className="w-12 h-12 bg-gradient-to-r from-primary to-blue-500 rounded-full flex items-center justify-center mr-4">
-                    <span className="text-white font-semibold">
+                  <motion.div 
+                    className="w-12 h-12 bg-gradient-to-r from-primary to-blue-500 rounded-full flex items-center justify-center mr-4"
+                    whileHover={{ 
+                      scale: 1.1,
+                      rotate: [0, -10, 10, 0],
+                    }}
+                    transition={{ duration: 0.4 }}
+                  >
+                    <motion.span 
+                      className="text-white font-semibold"
+                      whileHover={{ scale: 1.2 }}
+                    >
                       {testimonial.avatar}
-                    </span>
-                  </div>
+                    </motion.span>
+                  </motion.div>
                   <div>
-                    <h4 className="font-semibold">{testimonial.name}</h4>
-                    <p className="text-sm text-muted-foreground">
+                    <motion.h4 
+                      className="font-semibold"
+                      whileHover={{ x: 3, color: "hsl(263, 85%, 68%)" }}
+                      transition={{ type: "spring", stiffness: 300 }}
+                    >
+                      {testimonial.name}
+                    </motion.h4>
+                    <motion.p 
+                      className="text-sm text-muted-foreground"
+                      whileHover={{ x: 2 }}
+                    >
                       {testimonial.title}, {testimonial.company}
-                    </p>
+                    </motion.p>
                   </div>
                 </div>
-                <p className="text-muted-foreground mb-4">
+                <motion.p 
+                  className="text-muted-foreground mb-4"
+                  whileHover={{ y: -1 }}
+                  transition={{ type: "spring", stiffness: 300 }}
+                >
                   "{testimonial.content}"
-                </p>
-                {renderStars()}
+                </motion.p>
+                <motion.div
+                  whileHover={{ scale: 1.1 }}
+                  transition={{ duration: 0.3 }}
+                >
+                  {renderStars()}
+                </motion.div>
               </GlassCard>
             </motion.div>
           ))}

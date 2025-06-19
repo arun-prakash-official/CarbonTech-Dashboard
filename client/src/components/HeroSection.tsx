@@ -39,19 +39,31 @@ export default function HeroSection() {
           transition={{ duration: 0.8, delay: 0.4 }}
           className="flex flex-col sm:flex-row gap-4 justify-center"
         >
-          <Button
-            size="lg"
-            className="bg-gradient-to-r from-primary to-blue-500 hover:shadow-2xl transition-all transform hover:scale-105 ripple-container"
+          <motion.div
+            whileHover={{ scale: 1.05, y: -2 }}
+            whileTap={{ scale: 0.98 }}
+            transition={{ type: "spring", stiffness: 300 }}
           >
-            Start Tracking
-          </Button>
-          <Button
-            variant="outline"
-            size="lg"
-            className="border-primary hover:bg-primary hover:text-primary-foreground transition-all"
+            <Button
+              size="lg"
+              className="bg-gradient-to-r from-primary to-blue-500 hover:shadow-2xl hover-glow transition-all animate-strike"
+            >
+              Start Tracking
+            </Button>
+          </motion.div>
+          <motion.div
+            whileHover={{ scale: 1.05, y: -2 }}
+            whileTap={{ scale: 0.98 }}
+            transition={{ type: "spring", stiffness: 300 }}
           >
-            View Demo
-          </Button>
+            <Button
+              variant="outline"
+              size="lg"
+              className="border-primary hover:bg-primary hover:text-primary-foreground hover-lift transition-all"
+            >
+              View Demo
+            </Button>
+          </motion.div>
         </motion.div>
       </div>
 
