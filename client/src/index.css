@@ -132,6 +132,53 @@
     box-shadow: 0 0 30px hsl(263, 85%, 68%, 0.5);
   }
 
+  .lusion-text {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+  }
+
+  .lusion-grid {
+    background-image: 
+      linear-gradient(rgba(139, 92, 246, 0.1) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(139, 92, 246, 0.1) 1px, transparent 1px);
+    background-size: 20px 20px;
+  }
+
+  .lusion-blur-enter {
+    animation: blur-in 1.2s cubic-bezier(0.6, 0, 0.4, 1) forwards;
+  }
+
+  .lusion-blur-exit {
+    animation: blur-out 1.2s cubic-bezier(0.6, 0, 0.4, 1) forwards;
+  }
+
+@keyframes blur-in {
+  0% {
+    filter: blur(20px);
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  100% {
+    filter: blur(0px);
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes blur-out {
+  0% {
+    filter: blur(0px);
+    opacity: 1;
+    transform: scale(1);
+  }
+  100% {
+    filter: blur(20px);
+    opacity: 0;
+    transform: scale(1.05);
+  }
+}
+
   .scroll-indicator {
     @apply fixed top-0 left-0 w-full h-1 z-50;
     background: linear-gradient(90deg, hsl(263, 85%, 68%), hsl(217, 91%, 60%));

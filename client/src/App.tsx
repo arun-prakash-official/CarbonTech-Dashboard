@@ -22,10 +22,10 @@ function App() {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    // Simulate loading time for the immersive experience
+    // Show loader for longer to appreciate the Lusion-style experience
     const timer = setTimeout(() => {
       setIsLoading(false);
-    }, 3000);
+    }, 8000);
 
     return () => clearTimeout(timer);
   }, []);
