@@ -5,6 +5,7 @@ import BrandKits from "@/components/BrandKits";
 import CarbonAnalytics from "@/components/CarbonAnalytics";
 import PortfolioStats from "@/components/PortfolioStats";
 import FeaturesShowcase from "@/components/FeaturesShowcase";
+import WorksShowcase from "@/components/WorksShowcase";
 import Testimonials from "@/components/Testimonials";
 import CTASection from "@/components/CTASection";
 import Footer from "@/components/Footer";
@@ -27,6 +28,7 @@ export default function Dashboard() {
       <CarbonAnalytics />
       <PortfolioStats />
       <FeaturesShowcase />
+      <WorksShowcase />
       <Testimonials />
       <CTASection />
       <Footer />

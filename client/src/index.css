@@ -153,6 +153,44 @@
     animation: blur-out 1.2s cubic-bezier(0.6, 0, 0.4, 1) forwards;
   }
 
+  .animate-ripple-expand {
+    animation: ripple-expand 0.6s ease-out forwards;
+  }
+
+  .animate-parallax-float {
+    animation: parallax-float 8s ease-in-out infinite;
+  }
+
+  .animate-slide-in-left {
+    animation: slide-in-left 0.8s ease-out forwards;
+  }
+
+  .animate-slide-in-right {
+    animation: slide-in-right 0.8s ease-out forwards;
+  }
+
+  .animate-carousel-fade {
+    animation: carousel-fade 0.8s ease-out forwards;
+  }
+
+  .parallax-element {
+    will-change: transform;
+    backface-visibility: hidden;
+  }
+
+  .carousel-container {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .ripple-effect {
+    position: absolute;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.6);
+    pointer-events: none;
+    transform-origin: center;
+  }
+
 @keyframes blur-in {
   0% {
     filter: blur(20px);
@@ -176,6 +214,62 @@
     filter: blur(20px);
     opacity: 0;
     transform: scale(1.05);
+  }
+}
+
+@keyframes ripple-expand {
+  0% {
+    transform: scale(0);
+    opacity: 0.6;
+  }
+  100% {
+    transform: scale(4);
+    opacity: 0;
+  }
+}
+
+@keyframes parallax-float {
+  0%, 100% {
+    transform: translateY(0px) translateX(0px);
+  }
+  33% {
+    transform: translateY(-20px) translateX(10px);
+  }
+  66% {
+    transform: translateY(-10px) translateX(-10px);
+  }
+}
+
+@keyframes slide-in-left {
+  0% {
+    transform: translateX(-100px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes slide-in-right {
+  0% {
+    transform: translateX(100px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes carousel-fade {
+  0% {
+    opacity: 0;
+    transform: scale(0.95) rotate(1deg);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) rotate(0deg);
   }
 }
 
