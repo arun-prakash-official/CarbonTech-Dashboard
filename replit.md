@@ -120,6 +120,25 @@ CarbonTech Dashboard is a full-stack web application for carbon emissions tracki
 
 Preferred communication style: Simple, everyday language.
 
+## Installation & Running Instructions
+
+The application is designed to run on any system with minimal setup:
+
+### Prerequisites
+- Node.js version 18 or higher (includes npm)
+
+### Installation & Running
+1. Clone or download the project
+2. Install dependencies: `npm install`
+3. Run the application: `npm run dev`
+4. Access at `http://localhost:5000`
+
+### Features
+- Self-contained with in-memory storage (no external database required)
+- Hot reload enabled for development
+- Works on Windows, macOS, and Linux
+- All dependencies included in package.json
+
 ## Changelog
 
 Changelog:
