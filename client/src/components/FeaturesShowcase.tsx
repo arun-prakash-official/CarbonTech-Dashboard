@@ -8,6 +8,7 @@ import {
   Plug 
 } from "lucide-react";
 import GlassCard from "@/components/ui/glass-card";
+import WaterRipple from "@/components/ui/water-ripple";
 
 interface Feature {
   icon: typeof TrendingUp;
@@ -89,43 +90,49 @@ export default function FeaturesShowcase() {
               }}
               className="group"
             >
-              <GlassCard className="p-8 h-full hover-lift hover-glow transition-all duration-300 cursor-pointer">
-                <motion.div
-                  initial={{ scale: 1, rotate: 0 }}
-                  whileHover={{ 
-                    scale: 1.2,
-                    rotate: [0, -5, 5, -5, 0],
-                    y: [-5, 0, -5],
-                  }}
-                  transition={{ 
-                    duration: 0.6,
-                    type: "spring",
-                    stiffness: 200,
-                  }}
-                  className={`w-12 h-12 bg-gradient-to-r ${feature.color} rounded-lg flex items-center justify-center mb-6 group-hover:animate-rotate-strike`}
-                >
+              <WaterRipple
+                intensity="light"
+                color="rgba(59, 130, 246, 0.4)"
+                className="h-full"
+              >
+                <GlassCard className="p-8 h-full hover-lift hover-glow transition-all duration-300 cursor-pointer">
                   <motion.div
-                    whileHover={{ rotate: 360 }}
-                    transition={{ duration: 0.5 }}
+                    initial={{ scale: 1, rotate: 0 }}
+                    whileHover={{ 
+                      scale: 1.2,
+                      rotate: [0, -5, 5, -5, 0],
+                      y: [-5, 0, -5],
+                    }}
+                    transition={{ 
+                      duration: 0.6,
+                      type: "spring",
+                      stiffness: 200,
+                    }}
+                    className={`w-12 h-12 bg-gradient-to-r ${feature.color} rounded-lg flex items-center justify-center mb-6 group-hover:animate-rotate-strike`}
                   >
-                    <feature.icon className="h-6 w-6 text-white" />
+                    <motion.div
+                      whileHover={{ rotate: 360 }}
+                      transition={{ duration: 0.5 }}
+                    >
+                      <feature.icon className="h-6 w-6 text-white" />
+                    </motion.div>
                   </motion.div>
-                </motion.div>
-                <motion.h3 
-                  className="text-xl font-semibold mb-4"
-                  whileHover={{ x: 5, color: "hsl(263, 85%, 68%)" }}
-                  transition={{ type: "spring", stiffness: 300 }}
-                >
-                  {feature.title}
-                </motion.h3>
-                <motion.p 
-                  className="text-muted-foreground"
-                  whileHover={{ y: -2 }}
-                  transition={{ type: "spring", stiffness: 300 }}
-                >
-                  {feature.description}
-                </motion.p>
-              </GlassCard>
+                  <motion.h3 
+                    className="text-xl font-semibold mb-4"
+                    whileHover={{ x: 5, color: "hsl(263, 85%, 68%)" }}
+                    transition={{ type: "spring", stiffness: 300 }}
+                  >
+                    {feature.title}
+                  </motion.h3>
+                  <motion.p 
+                    className="text-muted-foreground"
+                    whileHover={{ y: -2 }}
+                    transition={{ type: "spring", stiffness: 300 }}
+                  >
+                    {feature.description}
+                  </motion.p>
+                </GlassCard>
+              </WaterRipple>
             </motion.div>
           ))}
         </div>

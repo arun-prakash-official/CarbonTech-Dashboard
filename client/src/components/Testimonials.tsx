@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
 import { Star } from "lucide-react";
 import GlassCard from "@/components/ui/glass-card";
+import WaterRipple from "@/components/ui/water-ripple";
 
 interface Testimonial {
   name: string;
@@ -76,7 +77,12 @@ export default function Testimonials() {
               }}
               className="group"
             >
-              <GlassCard className="p-8 h-full hover-lift hover-glow cursor-pointer">
+              <WaterRipple
+                intensity="light"
+                color="rgba(255, 215, 0, 0.4)"
+                className="h-full"
+              >
+                <GlassCard className="p-8 h-full hover-lift hover-glow cursor-pointer">
                 <div className="flex items-center mb-6">
                   <motion.div 
                     className="w-12 h-12 bg-gradient-to-r from-primary to-blue-500 rounded-full flex items-center justify-center mr-4"
@@ -122,7 +128,8 @@ export default function Testimonials() {
                 >
                   {renderStars()}
                 </motion.div>
-              </GlassCard>
+                </GlassCard>
+              </WaterRipple>
             </motion.div>
           ))}
         </div>

@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion";
 import ProgressBar from "@/components/ui/progress-bar";
 import GlassCard from "@/components/ui/glass-card";
+import WaterRipple from "@/components/ui/water-ripple";
 
 interface StatCard {
   title: string;
@@ -101,7 +102,12 @@ export default function PortfolioStats() {
               }}
               className="group"
             >
-              <GlassCard className="p-8 h-full hover-lift hover-glow cursor-pointer">
+              <WaterRipple
+                intensity="medium"
+                color="rgba(139, 92, 246, 0.6)"
+                className="h-full"
+              >
+                <GlassCard className="p-8 h-full hover-lift hover-glow cursor-pointer">
                 <div className="mb-6">
                   <motion.h3 
                     className="text-lg font-semibold text-muted-foreground mb-2"
@@ -183,7 +189,8 @@ export default function PortfolioStats() {
                     </motion.div>
                   </Button>
                 </motion.div>
-              </GlassCard>
+                </GlassCard>
+              </WaterRipple>
             </motion.div>
           ))}
         </div>

@@ -1,5 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion";
+import WaterRipple from "@/components/ui/water-ripple";
 
 export default function CTASection() {
   return (

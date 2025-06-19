@@ -1,6 +1,7 @@
 import { ChevronDown } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion";
+import WaterRipple from "@/components/ui/water-ripple";
 
 export default function HeroSection() {
   return (
@@ -39,31 +40,41 @@ export default function HeroSection() {
           transition={{ duration: 0.8, delay: 0.4 }}
           className="flex flex-col sm:flex-row gap-4 justify-center"
         >
-          <motion.div
-            whileHover={{ scale: 1.05, y: -2 }}
-            whileTap={{ scale: 0.98 }}
-            transition={{ type: "spring", stiffness: 300 }}
+          <WaterRipple
+            intensity="strong"
+            color="rgba(139, 92, 246, 0.8)"
           >
-            <Button
-              size="lg"
-              className="bg-gradient-to-r from-primary to-blue-500 hover:shadow-2xl hover-glow transition-all animate-strike"
+            <motion.div
+              whileHover={{ scale: 1.05, y: -2 }}
+              whileTap={{ scale: 0.98 }}
+              transition={{ type: "spring", stiffness: 300 }}
             >
-              Start Tracking
-            </Button>
-          </motion.div>
-          <motion.div
-            whileHover={{ scale: 1.05, y: -2 }}
-            whileTap={{ scale: 0.98 }}
-            transition={{ type: "spring", stiffness: 300 }}
+              <Button
+                size="lg"
+                className="bg-gradient-to-r from-primary to-blue-500 hover:shadow-2xl hover-glow transition-all animate-strike"
+              >
+                Start Tracking
+              </Button>
+            </motion.div>
+          </WaterRipple>
+          <WaterRipple
+            intensity="medium"
+            color="rgba(59, 130, 246, 0.6)"
           >
-            <Button
-              variant="outline"
-              size="lg"
-              className="border-primary hover:bg-primary hover:text-primary-foreground hover-lift transition-all"
+            <motion.div
+              whileHover={{ scale: 1.05, y: -2 }}
+              whileTap={{ scale: 0.98 }}
+              transition={{ type: "spring", stiffness: 300 }}
             >
-              View Demo
-            </Button>
-          </motion.div>
+              <Button
+                variant="outline"
+                size="lg"
+                className="border-primary hover:bg-primary hover:text-primary-foreground hover-lift transition-all"
+              >
+                View Demo
+              </Button>
+            </motion.div>
+          </WaterRipple>
         </motion.div>
       </div>
 

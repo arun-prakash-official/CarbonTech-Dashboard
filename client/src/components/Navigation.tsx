@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Leaf, Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import ThemeToggle from "@/components/ui/theme-toggle";
+import WaterRipple from "@/components/ui/water-ripple";
 
 export default function Navigation() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -37,20 +38,30 @@ export default function Navigation() {
               </a>
             ))}
             <ThemeToggle />
-            <Button className="bg-gradient-to-r from-primary to-blue-500 hover:shadow-lg transition-all">
-              Get Started
-            </Button>
+            <WaterRipple
+              intensity="medium"
+              color="rgba(139, 92, 246, 0.7)"
+            >
+              <Button className="bg-gradient-to-r from-primary to-blue-500 hover:shadow-lg transition-all">
+                Get Started
+              </Button>
+            </WaterRipple>
           </div>
 
           {/* Mobile Menu Button */}
-          <Button
-            variant="ghost"
-            size="icon"
+          <WaterRipple
+            intensity="light"
+            color="rgba(139, 92, 246, 0.5)"
             className="md:hidden"
-            onClick={() => setIsMenuOpen(!isMenuOpen)}
           >
-            {isMenuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
-          </Button>
+            <Button
+              variant="ghost"
+              size="icon"
+              onClick={() => setIsMenuOpen(!isMenuOpen)}
+            >
+              {isMenuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+            </Button>
+          </WaterRipple>
         </div>
 
         {/* Mobile Navigation */}
