@@ -1,5 +1,5 @@
-import { useState, useRef, useCallback, useEffect } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { useState, useRef } from "react";
+import { motion } from "framer-motion";
 import { cn } from "@/lib/utils";
 
 interface WaterRippleProps {
@@ -25,141 +25,115 @@ export default function WaterRipple({
   color = "rgba(139, 92, 246, 0.4)"
 }: WaterRippleProps) {
   const [ripples, setRipples] = useState<Ripple[]>([]);
-  const [isHovering, setIsHovering] = useState(false);
-  const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
   const containerRef = useRef<HTMLDivElement>(null);
-  const nextRippleId = useRef(0);
-  const hoverIntervalRef = useRef<NodeJS.Timeout | null>(null);
 
-  const createRipple = useCallback((x: number, y: number) => {
+  const intensityConfig = {
+    light: { maxRipples: 3, duration: 1500, maxSize: 100 },
+    medium: { maxRipples: 5, duration: 2000, maxSize: 150 },
+    strong: { maxRipples: 8, duration: 2500, maxSize: 200 }
+  };
+
+  const config = intensityConfig[intensity];
+
+  const createRipple = (event: React.MouseEvent<HTMLDivElement>) => {
     if (disabled || !containerRef.current) return;
 
-    const size = intensity === "light" ? 60 : intensity === "medium" ? 100 : 140;
+    const rect = containerRef.current.getBoundingClientRect();
+    const x = event.clientX - rect.left;
+    const y = event.clientY - rect.top;
+    
+    const size = Math.random() * (config.maxSize - 50) + 50;
     
     const newRipple: Ripple = {
-      id: nextRippleId.current++,
+      id: Date.now() + Math.random(),
       x,
       y,
       size,
     };
-
-    setRipples(prev => [...prev, newRipple]);
-
+    
+    setRipples(prev => {
+      const updated = [...prev, newRipple];
+      // Limit number of ripples for performance
+      return updated.slice(-config.maxRipples);
+    });
+    
+    // Remove ripple after animation
     setTimeout(() => {
       setRipples(prev => prev.filter(ripple => ripple.id !== newRipple.id));
-    }, 1500);
-  }, [disabled, intensity]);
-
-  const handleMouseMove = useCallback((event: React.MouseEvent<HTMLDivElement>) => {
-    if (!containerRef.current) return;
-    
-    const rect = containerRef.current.getBoundingClientRect();
-    const x = event.clientX - rect.left;
-    const y = event.clientY - rect.top;
-    
-    setMousePos({ x, y });
-  }, []);
-
-  const handleMouseEnter = useCallback((event: React.MouseEvent<HTMLDivElement>) => {
-    setIsHovering(true);
-    handleMouseMove(event);
-    
-    // Create continuous ripples during hover
-    hoverIntervalRef.current = setInterval(() => {
-      const randomOffset = 25;
-      const offsetX = (Math.random() - 0.5) * randomOffset;
-      const offsetY = (Math.random() - 0.5) * randomOffset;
-      createRipple(mousePos.x + offsetX, mousePos.y + offsetY);
-    }, 300);
-  }, [createRipple, mousePos.x, mousePos.y, handleMouseMove]);
-
-  const handleMouseLeave = useCallback(() => {
-    setIsHovering(false);
-    if (hoverIntervalRef.current) {
-      clearInterval(hoverIntervalRef.current);
-      hoverIntervalRef.current = null;
-    }
-  }, []);
-
-  const handleClick = useCallback((event: React.MouseEvent<HTMLDivElement>) => {
-    if (!containerRef.current) return;
-    
-    const rect = containerRef.current.getBoundingClientRect();
-    const x = event.clientX - rect.left;
-    const y = event.clientY - rect.top;
-    
-    // Create burst of ripples for click
-    createRipple(x, y);
-    setTimeout(() => createRipple(x, y), 80);
-    setTimeout(() => createRipple(x, y), 160);
-  }, [createRipple]);
-
-  useEffect(() => {
-    return () => {
-      if (hoverIntervalRef.current) {
-        clearInterval(hoverIntervalRef.current);
-      }
-    };
-  }, []);
+    }, config.duration);
+  };
 
   return (
     <div
       ref={containerRef}
       className={cn("relative overflow-hidden", className)}
-      onMouseMove={handleMouseMove}
-      onMouseEnter={handleMouseEnter}
-      onMouseLeave={handleMouseLeave}
-      onClick={handleClick}
-      style={{ position: "relative" }}
+      onMouseMove={createRipple}
+      style={{ isolation: "isolate" }}
     >
       {children}
       
-      <AnimatePresence>
+      {/* Water Ripple Effects */}
+      <div className="absolute inset-0 pointer-events-none">
         {ripples.map((ripple) => (
           <motion.div
             key={ripple.id}
+            initial={{ 
+              scale: 0, 
+              opacity: 0.8,
+              rotate: 0,
+            }}
+            animate={{ 
+              scale: [0, 1, 1.5, 2],
+              opacity: [0.8, 0.6, 0.3, 0],
+              rotate: [0, 180, 360],
+            }}
+            transition={{ 
+              duration: config.duration / 1000,
+              ease: [0.4, 0, 0.2, 1],
+              times: [0, 0.3, 0.7, 1]
+            }}
             className="absolute rounded-full pointer-events-none"
             style={{
               left: ripple.x - ripple.size / 2,
               top: ripple.y - ripple.size / 2,
               width: ripple.size,
               height: ripple.size,
-              border: `2px solid ${color}`,
-              backgroundColor: `${color}20`,
-            }}
-            initial={{
-              scale: 0,
-              opacity: 0.8,
-            }}
-            animate={{
-              scale: [0, 1, 2.5],
-              opacity: [0.8, 0.5, 0],
-            }}
-            exit={{
-              opacity: 0,
-            }}
-            transition={{
-              duration: 1.5,
-              ease: [0.25, 0.46, 0.45, 0.94],
-              times: [0, 0.2, 1],
+              background: `radial-gradient(circle, ${color} 0%, transparent 70%)`,
+              boxShadow: `0 0 ${ripple.size * 0.3}px ${color}`,
+              filter: "blur(1px)",
             }}
           />
         ))}
-      </AnimatePresence>
-
-      {/* Real-time hover glow effect */}
-      {isHovering && (
-        <motion.div
-          className="absolute inset-0 pointer-events-none"
-          style={{
-            background: `radial-gradient(circle 120px at ${mousePos.x}px ${mousePos.y}px, ${color} 0%, transparent 50%)`,
-          }}
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 0.2 }}
-          exit={{ opacity: 0 }}
-          transition={{ duration: 0.3 }}
-        />
-      )}
+        
+        {/* Secondary Wave Effect */}
+        {ripples.map((ripple) => (
+          <motion.div
+            key={`wave-${ripple.id}`}
+            initial={{ 
+              scale: 0, 
+              opacity: 0.4,
+            }}
+            animate={{ 
+              scale: [0, 0.8, 1.8, 3],
+              opacity: [0.4, 0.2, 0.1, 0],
+            }}
+            transition={{ 
+              duration: (config.duration / 1000) * 1.5,
+              ease: "easeOut",
+              delay: 0.1,
+            }}
+            className="absolute rounded-full pointer-events-none"
+            style={{
+              left: ripple.x - (ripple.size * 1.5) / 2,
+              top: ripple.y - (ripple.size * 1.5) / 2,
+              width: ripple.size * 1.5,
+              height: ripple.size * 1.5,
+              border: `1px solid ${color}`,
+              filter: "blur(2px)",
+            }}
+          />
+        ))}
+      </div>
     </div>
   );
 }
