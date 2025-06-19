@@ -131,21 +131,6 @@ The application features a comprehensive dark/light theme system:
 - Touch-friendly interactions
 - Optimized for all screen sizes
 
-## 🔧 Configuration
-
-### Environment Variables
-The application works out of the box with default configurations. For production deployment with external database:
-
-```env
-DATABASE_URL=your_database_url_here
-NODE_ENV=production
-```
-
-### Customization
-- **Colors**: Edit `client/src/index.css` for theme colors
-- **Components**: Modify components in `client/src/components/`
-- **Animations**: Adjust Framer Motion settings in component files
-
 ## 🚀 Deployment
 
 ### Development
@@ -158,31 +143,6 @@ npm run dev
 npm run build
 npm start
 ```
-
-### Replit Deployment
-The application is configured for Replit autoscale deployment and will work seamlessly in the Replit environment.
-
-## 🎯 Performance Features
-
-- **Hot Module Replacement** for instant development updates
-- **Code splitting** for optimized loading
-- **Lazy loading** for components and routes
-- **Optimized bundle size** with tree shaking
-
-## 🛡️ Type Safety
-
-The entire application is built with TypeScript, providing:
-- Full type coverage across frontend and backend
-- Shared type definitions
-- Runtime type validation with Zod schemas
-
-## 🤝 Contributing
-
-1. Fork the repository
-2. Create a feature branch
-3. Make your changes
-4. Test thoroughly
-5. Submit a pull request
 
 ## 📄 License
 
@@ -224,4 +184,4 @@ For issues and questions:
 
 ---
 
-Built with ❤️ using modern web technologies for an exceptional user experience.
+Built with Replit AI using modern web technologies for an exceptional user experience.
